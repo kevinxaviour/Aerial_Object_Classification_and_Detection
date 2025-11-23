@@ -1,6 +1,7 @@
-ultralytics
 streamlit
-pandas
+ultralytics
+opencv-python-headless
 tensorflow
-boto3
+pillow
 numpy
+boto3
