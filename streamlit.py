@@ -45,6 +45,8 @@ def load_all_from_s3():
     mobilenet_obj = s3.get_object(Bucket=bucket_name, Key=MOBILENET_MODEL_KEY)
 
     mobilenet_bytes = mobilenet_obj["Body"].read()
+    mobilenet_bytes = bytes(mobilenet_bytes)
+
 
     mobilenet_path = "/tmp/mobilenet_model.keras"
     with open(mobilenet_path, "wb") as f:
@@ -140,6 +142,7 @@ if uploaded_file:
 
 else:
     st.info("Upload an image from the **sidebar** to begin.")
+
 
 
 
