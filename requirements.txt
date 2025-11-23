@@ -1,6 +1,6 @@
 streamlit
-ultralytics
-opencv-python-headless
+ultralytics==8.3.230
+opencv-python-headless==4.11.0.86
 tensorflow-cpu==2.19.0
 pillow
 numpy
