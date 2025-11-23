@@ -1,0 +1,6 @@
+ultralytics
+streamlit
+pandas
+tensorflow
+boto3
+numpy
