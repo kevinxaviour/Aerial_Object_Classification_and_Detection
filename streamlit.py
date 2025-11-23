@@ -23,11 +23,11 @@ st.markdown(
     unsafe_allow_html=True
 )
 bucket_name = "forestclassification"  
-AWS_ACCESS_KEY_ID="AKIA3WVO4RCHDYKMQ2FH"
-AWS_SECRET_ACCESS_KEY="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"
-AWS_DEFAULT_REGION= "ap-south-1"
-MOBILENET_MODEL_KEY="Object_det_birdVSdrone/Custom_model.keras"
-YOLO_MODEL_KEY="Object_det_birdVSdrone/best"
+AWS_ACCESS_KEY_ID= os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY= os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_DEFAULT_REGION=  os.getenv("AWS_DEFAULT_REGION")
+MOBILENET_MODEL_KEY=os.getenv("MOBILENET_MODEL_KEY")
+YOLO_MODEL_KEY=os.getenv("YOLO_MODEL_KEY")
 
 
 
@@ -139,5 +139,6 @@ if uploaded_file:
 
 else:
     st.info("Upload an image from the **sidebar** to begin.")
+
 
 
