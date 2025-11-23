@@ -27,8 +27,17 @@ st.markdown(
 # --------------------------------
 # LOAD MODELS
 # --------------------------------
-model = tf.keras.models.load_model('Custom_model.keras')
-yolomodel = YOLO('best.pt')
+@st.cache_resource
+def load_mobilenet():
+    return tf.keras.models.load_model("Custom_model.keras")
+
+@st.cache_resource
+def load_yolo():
+    return YOLO("best.pt")
+
+model = load_mobilenet()
+yolomodel = load_yolo()
+
 class_names = ["Bird", "Drone"]
 
 # --------------------------------
@@ -123,3 +132,4 @@ if uploaded_file:
 
 else:
     st.info("⬅️ Upload an image from the **sidebar** to begin.")
+
