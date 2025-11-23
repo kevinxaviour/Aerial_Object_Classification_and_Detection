@@ -6,44 +6,29 @@ import tempfile
 import tensorflow as tf
 from io import BytesIO
 
-# -------------------------------
-# PAGE CONFIG (Beautiful Layout)
-# -------------------------------
+# Page Configuration
 st.set_page_config(
     page_title="Drone vs Bird | Detection App",
-    page_icon="🛸",
     layout="wide"
 )
 
 st.markdown(
     """
-    <h1 style='text-align:center; color:#3b82f6;'>🛸 Drone vs Bird Detection App</h1>
+    <h1 style='text-align:center; color:#3b82f6;'>Drone vs Bird Detection App</h1>
     <h4 style='text-align:center; color:gray;'>MobileNet Classification + YOLO Object Detection</h4>
     <br>
     """,
     unsafe_allow_html=True
 )
 
-# --------------------------------
-# LOAD MODELS
-# --------------------------------
-@st.cache_resource
-def load_mobilenet():
-    return tf.keras.models.load_model("Custom_model.keras")
 
-@st.cache_resource
-def load_yolo():
-    return YOLO("best.pt")
-
-model = load_mobilenet()
-yolomodel = load_yolo()
-
+# Loading Models
+model = tf.keras.models.load_model('Custom_model.keras')
+yolomodel = YOLO('detect/train2/weights/best.pt')
 class_names = ["Bird", "Drone"]
 
-# --------------------------------
-# SIDEBAR
-# --------------------------------
-st.sidebar.header("⚙️ Settings")
+# Sidebar
+st.sidebar.header("Settings")
 
 uploaded_file = st.sidebar.file_uploader(
     "Upload image", type=["jpg", "jpeg", "png"], help="Upload a Drone or Bird image"
@@ -56,14 +41,12 @@ st.sidebar.markdown("---")
 st.sidebar.info("Developed using MobileNet + YOLOv8")
 
 
-# --------------------------------
-# MAIN UI
-# --------------------------------
+# Main UI
 if uploaded_file:
 
     col1, col2 = st.columns([1.2, 1])
 
-    # LEFT → IMAGE PREVIEW
+    # Left --> Image Preview
     with col1:
         image = Image.open(uploaded_file)
         st.image(image, caption="Uploaded Image", use_container_width=True)
@@ -72,13 +55,11 @@ if uploaded_file:
         temp = tempfile.NamedTemporaryFile(delete=False, suffix=".jpg")
         image.save(temp.name)
 
-    # RIGHT → RESULTS
+    # Right --> Results
     with col2:
-        st.markdown("### 🔍 Results Panel")
+        st.markdown("### Results Panel")
 
-        # --------------------------------
         # MobileNet Prediction
-        # --------------------------------
         if run_mobilenet:
             with st.spinner("Running MobileNet Prediction..."):
                 img_resized = image.resize((224, 224))
@@ -91,9 +72,7 @@ if uploaded_file:
 
             st.success(f"**MobileNet Prediction:** {predicted_label}")
 
-        # --------------------------------
         # YOLO Detection
-        # --------------------------------
         if run_yolo:
             with st.spinner("Running YOLO Detection..."):
                 results = yolomodel.predict(temp.name, conf=0.10, iou=0.25)
@@ -103,9 +82,9 @@ if uploaded_file:
             annotated_rgb = annotated_bgr[:, :, ::-1]
             st.image(annotated_rgb, caption="YOLO Detection", use_container_width=True)
 
-            # ---- Show class + confidence ----
+            # Show class + confidence
             detections = results[0].boxes
-            st.write("### 🔍 Predictions (Class & Confidence)")
+            st.write("### Predictions (Class & Confidence)")
             
             if len(detections) == 0:
                 st.write("No objects detected.")
@@ -116,14 +95,14 @@ if uploaded_file:
                     class_name = yolomodel.names[cls_id]
                     st.write(f"• **{class_name}** — {conf:.2f}%")
 
-            # ---- Download button ----
+            # Download button
             pil_img = Image.fromarray(annotated_rgb)
             buf = BytesIO()
             pil_img.save(buf, format="PNG")
             byte_im = buf.getvalue()
 
             st.download_button(
-                label="📥 Download YOLO Result",
+                label="Download YOLO Result",
                 data=byte_im,
                 file_name="YOLO_detection.png",
                 mime="image/png"
@@ -132,4 +111,3 @@ if uploaded_file:
 
 else:
     st.info("⬅️ Upload an image from the **sidebar** to begin.")
-
