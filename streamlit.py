@@ -6,6 +6,7 @@ import tempfile
 import tensorflow as tf
 from io import BytesIO
 import boto3
+import os
 
 
 # Page Configuration
@@ -139,6 +140,7 @@ if uploaded_file:
 
 else:
     st.info("Upload an image from the **sidebar** to begin.")
+
 
 
 
