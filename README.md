@@ -33,6 +33,10 @@
   - Yolo requires the training images to be in an particular folder dir with train,validation and test data split in labels and images folders seperately.
 - Creating data.yaml file for model training [data.yaml](https://github.com/kevinxaviour/Aerial_Object_Classification_and_Detection/blob/b0ab59990be0693f9afe882f00639cfad5e649c3/data.yaml)
 - Model Training
+- Model Evaluation
+
+<img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/901b8434-de3a-4f7d-be59-4d8474b758b4" />
+
 - Saving Model
 
 ### - Streamlit Application [streamlit.py](https://github.com/kevinxaviour/Aerial_Object_Classification_and_Detection/blob/b0ab59990be0693f9afe882f00639cfad5e649c3/streamlit.py)
