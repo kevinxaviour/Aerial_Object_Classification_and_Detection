@@ -43,11 +43,11 @@
 -  Side bar to upload data and select a model to view result.
 -  In main content the left side shows original image and right side with the predicted output.
 -  Created an download button to download YOLO detected image
--  Image Classification
+### -  Image Classification
 
 <img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/f523aab7-4bd9-46c6-8ef5-ba7b1427e130" />
 
-- Image detection
+### - Image detection
 
  <img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/4d565872-4c7f-4554-9b6e-650d8d698286" />
 
