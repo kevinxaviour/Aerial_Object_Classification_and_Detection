@@ -34,8 +34,8 @@ uploaded_file = st.sidebar.file_uploader(
     "Upload image", type=["jpg", "jpeg", "png"], help="Upload a Drone or Bird image"
 )
 
-run_mobilenet = st.sidebar.button("Run MobileNet Classification")
-run_yolo = st.sidebar.button("Run YOLO Detection")
+run_mobilenet = st.sidebar.button("MobileNet Classification")
+run_yolo = st.sidebar.button("YOLO Detection")
 
 st.sidebar.markdown("---")
 st.sidebar.info("Developed using MobileNet + YOLOv8")
@@ -84,8 +84,8 @@ if uploaded_file:
 
             # Show class + confidence
             detections = results[0].boxes
-            st.write("### Predictions (Class & Confidence)")
-            
+            st.write("### All Detected Objects")
+
             if len(detections) == 0:
                 st.write("No objects detected.")
             else:
@@ -93,6 +93,7 @@ if uploaded_file:
                     cls_id = int(box.cls[0])
                     conf = float(box.conf[0]) * 100
                     class_name = yolomodel.names[cls_id]
+
                     st.write(f"• **{class_name}** — {conf:.2f}%")
 
             # Download button
@@ -110,4 +111,4 @@ if uploaded_file:
 
 
 else:
-    st.info("⬅️ Upload an image from the **sidebar** to begin.")
+    st.info("Upload an image from the **sidebar** to begin.")
